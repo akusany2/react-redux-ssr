@@ -1,5 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/Home';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 
-ReactDOM.hydrate(<Home />, document.querySelector('#root'));
+import Routes from './Routes';
+
+
+ReactDOM.hydrate(
+  <BrowserRouter>
+    {renderRoutes(Routes)}
+  </BrowserRouter>
+  , document.querySelector('#root'));

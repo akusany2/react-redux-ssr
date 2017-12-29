@@ -1,9 +1,18 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import Home from '../client/components/Home';
+import { renderRoutes } from 'react-router-config';
+import { StaticRouter } from 'react-router-dom';
+// import serialize from 'serialize-javascript';
 
-export default () => {
-  const content = renderToString(<Home />);
+
+import Routes from '../client/Routes';
+
+export default (req, context) => {
+  const content = renderToString(
+    <StaticRouter location={req.path} context={context}>
+      {renderRoutes(Routes)}
+    </StaticRouter>
+  );
 
   // content will be overwritten by reactjs after client_bundle is loaded 
   return `

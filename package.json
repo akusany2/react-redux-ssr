@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:*",
-    "dev:server": "nodemon --watch build --exec \"node build/server_bundle.js\"",
+    "clean": "rimraf build && rimraf public",
+    "dev": "npm-run-all --parallel dev:* server",
     "dev:build-server": "webpack --config webpack.server.js --watch",
-    "dev:build-client": "webpack --config webpack.client.js --watch"
+    "dev:build-client": "webpack --config webpack.client.js --watch",
+    "prod": "NODE_ENV=production npm-run-all prod:*",
+    "prod:build-server": "webpack --config webpack.server.js --watch",
+    "prod:build-client": "webpack --config webpack.client.js --watch",
+    "server": "nodemon --watch build --exec \"node build/server_bundle.js\""
   },
   "keywords": [],
   "author": "",
@@ -25,6 +29,10 @@
     "express": "^4.16.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-config": "^1.0.0-beta.4",
+    "react-router-dom": "^4.2.2",
+    "rimraf": "^2.6.2",
+    "serialize-javascript": "^1.4.0",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0"
