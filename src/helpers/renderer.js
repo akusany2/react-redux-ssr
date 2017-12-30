@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
 import fs from 'fs';
 
-
 import Routes from '../client/Routes';
 
 // webpack caching
@@ -20,9 +19,11 @@ fs.readdir(publicPath, (err, files) => {
       jsFile = file;
     }
   })
+  // console.log(jsFile);
 });
 
 export default (req, store, context) => {
+  
   const content = renderToString(
     <Provider store={store} >
       <StaticRouter location={req.path} context={context}>
