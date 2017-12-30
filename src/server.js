@@ -1,5 +1,8 @@
 import 'babel-polyfill';
-import express from 'express'
+import express from 'express';
+import path from 'path';
+import expressStaticGzip from 'express-static-gzip';
+// import compression from 'compression'
 
 import { matchRoutes } from 'react-router-config';
 import { createStore, applyMiddleware } from 'redux';
@@ -15,7 +18,11 @@ let port = 3000;
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-app.use(express.static('public'));
+// app.use(compression())
+// app.use(express.static('public'));
+app.use('/', expressStaticGzip('public', {
+  enableBrotli: true
+}))
 app.get('*', (req, res) => {
 
   const branch = matchRoutes(Routes, req.url);

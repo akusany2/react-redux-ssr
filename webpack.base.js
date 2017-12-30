@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   // Babel transform on every file
 

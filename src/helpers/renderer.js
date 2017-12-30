@@ -4,13 +4,25 @@ import { renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
+import fs from 'fs';
 
 
 import Routes from '../client/Routes';
 
-export default (req, store, context) => {
-  
+// webpack caching
+const publicPath = 'public';
+let jsFile = '';
+fs.readdir(publicPath, (err, files) => {
+  files.map(file => {
+    let temp = file.split('.');
+    // check if it is not ***.js.map (source file)
+    if (temp.length <= 2) {
+      jsFile = file;
+    }
+  })
+});
 
+export default (req, store, context) => {
   const content = renderToString(
     <Provider store={store} >
       <StaticRouter location={req.path} context={context}>
@@ -32,7 +44,7 @@ export default (req, store, context) => {
     <script>
       window.__INITIAL_STATE__=${serialize(store.getState())}
     </script>
-    <script src="client_bundle.js"></script>
+    <script src="${jsFile}"></script>
   </body>
   </html>
   `
