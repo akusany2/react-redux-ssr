@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf build && rimraf public",
-    "dev": "npm-run-all --parallel dev:* server",
+    "clean": "rimraf build/*.js && rimraf public/*.js",
+    "dev": "npm-run-all clean --parallel dev:*",
+    "dev:start": "just-wait -p \"build/server_bundle.js\" && npm run server",
     "dev:build-server": "webpack --config webpack.server.js --watch",
     "dev:build-client": "webpack --config webpack.client.js --watch",
     "prod": "NODE_ENV=production npm-run-all prod:*",
@@ -17,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -29,8 +31,11 @@
     "express": "^4.16.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "rimraf": "^2.6.2",
     "serialize-javascript": "^1.4.0",
     "webpack": "^3.10.0",
@@ -38,6 +43,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "devDependencies": {
+    "just-wait": "^1.0.11",
     "nodemon": "^1.12.5",
     "npm-run-all": "^4.1.2"
   }
