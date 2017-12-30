@@ -21,6 +21,10 @@ const store = createStore(reducers, applyMiddleware(thunk));
 // app.use(compression())
 // app.use(express.static('public'));
 
+app.use('/', expressStaticGzip('public', {
+  enableBrotli: true,
+  indexFromEmptyFile: false
+}))
 app.get('*', (req, res) => {
 
   const branch = matchRoutes(Routes, req.url);
@@ -44,8 +48,7 @@ app.get('*', (req, res) => {
     res.send(content);
   })
 
-}, expressStaticGzip('public', {
-  enableBrotli: true
-}))
+})
+
 
 app.listen(port, () => console.log(`Listening on localhost:${port}`))

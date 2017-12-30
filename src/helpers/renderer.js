@@ -23,7 +23,7 @@ fs.readdir(publicPath, (err, files) => {
 });
 
 export default (req, store, context) => {
-  
+  // console.log(jsFile);
   const content = renderToString(
     <Provider store={store} >
       <StaticRouter location={req.path} context={context}>
