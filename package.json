@@ -9,7 +9,8 @@
     "dev:start": "just-wait -p \"build/server_bundle.js\" && npm run server",
     "dev:build-server": "webpack --config webpack.server.js --watch",
     "dev:build-client": "webpack --config webpack.client.js --watch",
-    "prod": "NODE_ENV=production npm-run-all prod:*",
+    "prod": "NODE_ENV=production npm-run-all clean --parallel prod:*",
+    "prod:start": "just-wait -p \"build/server_bundle.js\" && npm run server",
     "prod:build-server": "webpack --config webpack.server.js --watch",
     "prod:build-client": "webpack --config webpack.client.js --watch",
     "server": "nodemon --watch build --exec \"node build/server_bundle.js\""
