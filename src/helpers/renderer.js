@@ -2,16 +2,21 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
-// import serialize from 'serialize-javascript';
+import { Provider } from 'react-redux';
+import serialize from 'serialize-javascript';
 
 
 import Routes from '../client/Routes';
 
-export default (req, context) => {
+export default (req, store, context) => {
+  
+
   const content = renderToString(
-    <StaticRouter location={req.path} context={context}>
-      {renderRoutes(Routes)}
-    </StaticRouter>
+    <Provider store={store} >
+      <StaticRouter location={req.path} context={context}>
+        {renderRoutes(Routes)}
+      </StaticRouter>
+    </Provider>
   );
 
   // content will be overwritten by reactjs after client_bundle is loaded 
@@ -24,6 +29,9 @@ export default (req, context) => {
   </head>
   <body>
     <div id="root">${content}</div>
+    <script>
+      window.__INITIAL_STATE__=${serialize(store.getState())}
+    </script>
     <script src="client_bundle.js"></script>
   </body>
   </html>

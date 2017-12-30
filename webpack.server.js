@@ -9,7 +9,7 @@ const config = {
   // bundling for nodejs rather than browser
   target: 'node',
 
-  devtool: isProductionEnv ? none : 'source-map',
+  devtool: isProductionEnv ? 'none' : 'inline-source-map',
 
   // root file for application
   entry: './src/server.js',
