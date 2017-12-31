@@ -4,6 +4,7 @@ import { renderRoutes } from 'react-router-config';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
+import { Helmet } from 'react-helmet';
 import fs from 'fs';
 
 import Routes from '../client/Routes';
@@ -32,6 +33,8 @@ export default (req, store, context) => {
     </Provider>
   );
 
+  const helmet = Helmet.renderStatic();
+
   // content will be overwritten by reactjs after client_bundle is loaded 
   return `
   <html>
@@ -39,6 +42,7 @@ export default (req, store, context) => {
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    ${helmet.title.toString()}
     <link rel="stylesheet" href="main_${hash}.css"/>
   </head>
   <body>
