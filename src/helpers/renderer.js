@@ -10,20 +10,20 @@ import Routes from '../client/Routes';
 
 // webpack caching
 const publicPath = 'public';
-let jsFile = '';
+let hash = '';
 fs.readdir(publicPath, (err, files) => {
   files.map(file => {
     let temp = file.split('.');
     // check if it is not ***.js.map (source file)
     if (temp.length <= 2) {
-      jsFile = file;
+      hash = temp[0].split('_')[1];
     }
   })
-  // console.log(jsFile);
+  // console.log(hash);
 });
 
 export default (req, store, context) => {
-  // console.log(jsFile);
+  // console.log(hash);
   const content = renderToString(
     <Provider store={store} >
       <StaticRouter location={req.path} context={context}>
@@ -39,13 +39,14 @@ export default (req, store, context) => {
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="stylesheet" href="main_${hash}.css"/>
   </head>
   <body>
     <div id="root">${content}</div>
     <script>
       window.__INITIAL_STATE__=${serialize(store.getState())}
     </script>
-    <script src="${jsFile}"></script>
+    <script src="main_${hash}.js"></script>
   </body>
   </html>
   `
