@@ -7,19 +7,9 @@ class SamplePage extends React.Component {
   static fetchData(store) {
     return store.dispatch(fetchApiData());
   }
-  listSampleData() {
-    this.props.sampleData.map(item => {
-      console.log(item.show.name);
-      return (
-        <div>
-          <h3>{item.show.name}</h3>
-          {item.show.summary}
-        </div>
-      )
-    })
-  }
+  
   render() {
-    // console.log(this.props.sampleData)
+    
     return (
       <div className='container mx-auto'>
         <h1>Sample page!!!</h1>
