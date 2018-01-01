@@ -6,6 +6,7 @@ export default class HomePage extends React.Component{
     return (
       <Helmet>
         <title>Homepage!</title>
+        <meta property="og:title" content="Home page" />
       </Helmet>
     )
   }

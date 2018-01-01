@@ -72,6 +72,10 @@ const config = {
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
       minRatio: 0.8
+    }),
+    new ExtractTextPlugin({ 
+      filename: '[name]_[chunkhash].css',
+      allChunks: true,
     })
   ] : [
       new ExtractTextPlugin({ 

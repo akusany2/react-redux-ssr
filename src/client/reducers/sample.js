@@ -9,7 +9,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case sampleData1:
-      return { ...state, data: action.data }
+      return { ...state, data1: action.data }
     default:
       return state  
   }
@@ -26,7 +26,9 @@ function loadData(data) {
 export function fetchApiData() {
   return function (dispatch) {
     return axios.get(`https://api.tvmaze.com/search/shows?q=batman`)
-      .then(res => dispatch(loadData()))
+      .then(res => {
+        return dispatch(loadData(res.data))
+      })
       .catch(err => console.log(err))
   }
 }
