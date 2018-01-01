@@ -20,8 +20,7 @@ const config = {
   // output of bundled file
   // output the file in public folder, so that browser can access the file
   output: {
-    filename: '[name]_[chunkhash].js',
-    chunkFilename: '[id].[chunkhash].js',
+    filename: 'client_bundle.js',
     path: path.resolve(__dirname, 'public')
   },
 
@@ -34,9 +33,8 @@ const config = {
           use: [
             {
               loader: 'css-loader', options: {
-                importLoaders: 1,
                 minimize: true,
-                sourceMap: true
+                sourceMap: isProductionEnv ? false: true
               }
             },
             { loader: 'sass-loader' },
@@ -74,12 +72,12 @@ const config = {
       minRatio: 0.8
     }),
     new ExtractTextPlugin({ 
-      filename: '[name]_[chunkhash].css',
+      filename: 'client_bundle.css',
       allChunks: true,
     })
   ] : [
       new ExtractTextPlugin({ 
-        filename: '[name]_[chunkhash].css',
+        filename: 'client_bundle.css',
         allChunks: true,
       })
     ]

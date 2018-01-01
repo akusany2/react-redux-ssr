@@ -5,25 +5,13 @@ import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
-import fs from 'fs';
+// import fs from 'fs';
 
 import Routes from '../client/Routes';
 
-// webpack caching
-const publicPath = 'public';
-let hash = '';
-fs.readdir(publicPath, (err, files) => {
-  files.map(file => {
-    let temp = file.split('.');
-    // check if it is not ***.js.map (source file)
-    if (temp.length <= 2) {
-      hash = temp[0].split('_')[1];
-    }
-  })
-  // console.log(hash);
-});
 
 export default (req, store, context) => {
+
   // console.log(hash);
   const content = renderToString(
     <Provider store={store} >
@@ -44,14 +32,14 @@ export default (req, store, context) => {
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     ${helmet.title.toString()}
     ${helmet.meta.toString()}
-    <link rel="stylesheet" href="main_${hash}.css"/>
+    <link rel="stylesheet" href="client_bundle.css"/>
   </head>
   <body>
     <div id="root">${content}</div>
     <script>
       window.__INITIAL_STATE__=${serialize(store.getState())}
     </script>
-    <script src="main_${hash}.js"></script>
+    <script src="client_bundle.js"></script>
   </body>
   </html>
   `
